@@ -11,7 +11,7 @@ import numpy as np
 st.set_page_config(page_title="Analisis Kualitas Udara di Aotizhongxin")
 
 
-data = pd.read_csv('data/PRSA_Data_Aotizhongxin_20130301-20170228.csv')
+data = pd.read_csv('./data/PRSA_Data_Aotizhongxin_20130301-20170228.csv')
 
 
 st.title('Dashboard Analisis Kualitas Udara di Aotizhongxin')
