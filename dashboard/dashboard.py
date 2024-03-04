@@ -10,8 +10,7 @@ import numpy as np
 st.set_page_config(page_title="Analisis Kualitas Udara di Aotizhongxin")
 
 
-file_path = 'https://raw.githubusercontent.com/fatmasyifa/myproject/main/PRSA_Data_Aotizhongxin_20130301-20170228.csv'
-data = pd.read_csv(file_path)
+data = pd.read_csv('./data/PRSA_Data_Aotizhongxin_20130301-20170228.csv')
 
 
 st.title('Dashboard Analisis Kualitas Udara di Aotizhongxin')
