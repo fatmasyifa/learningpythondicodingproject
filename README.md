@@ -12,6 +12,4 @@ streamlit run dashboard.py
 ```
 
 ## Alternate link dashboard
-```
 https://fatmasyifa-aotizongxin-air-quality.streamlit.app/ 
-```
