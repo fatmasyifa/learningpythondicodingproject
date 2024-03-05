@@ -6,6 +6,10 @@ from scipy.stats import f_oneway
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+st.set_page_config(page_title="Analisis Kualitas Udara di Aotizhongxin")
+
+
+data = pd.read_csv('./data/PRSA_Data_Aotizhongxin_20130301-20170228.csv')
 st.title('Dashboard Analisis Kualitas Udara di Aotizhongxin')
 
 
@@ -23,17 +27,7 @@ st.markdown("""
 Dashboard ini menunjukkan analisis data kualitas udara yang berfokus pada tingkat PM2.5 dari Aotizhongxin yang bertujuan untuk mengungkap kecenderungan, variasi per musim, dan kualitas udara yang diakibatkan perbedaan kondisi cuaca. Analisis ini berguna untuk studi lingkungan dan memantau kesehatan masyarakat.
 """)
 
-# Read data
-df = pd.read_csv('./data/PRSA_Data_Aotizhongxin_20130301-20170228.csv')
 
-# Display initial assessment
-st.title("Initial Assessment")
-st.write("Head of the DataFrame:")
-st.write(df.head())
-st.write("Columns:")
-st.write(df.columns)
-st.write("Data Types:")
-st.write(df.dtypes)
 
 # Missing data analysis
 st.title("Missing Data Analysis")
