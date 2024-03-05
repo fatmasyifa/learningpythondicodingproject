@@ -29,6 +29,19 @@ plt.ylabel('Pollutant')
 plt.yticks(rotation=0)
 st.pyplot()
 
+st.write("Missing Percentage:")
+st.write(missing_percentage)
+st.write("Sum of Missing Data for 2013:")
+st.write(data_missing_2013.sum())
+
+# Data preprocessing
+data_imputed = df.fillna(method='ffill')
+duplicates = data_imputed.duplicated().sum()
+constant_columns = data_imputed.columns[data_imputed.nunique() <= 1]
+data_types = data_imputed.dtypes
+st.write("Duplicates:", duplicates)
+st.write("Constant Columns:", constant_columns)
+st.write("Data Types:", data_types)
 # Summary Statistics
 st.title("Summary Statistics")
 summary_statistics = data_imputed.describe()
