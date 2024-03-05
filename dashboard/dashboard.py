@@ -29,6 +29,7 @@ plt.xlabel('Date')
 plt.ylabel('Pollutant')
 plt.yticks(rotation=0)
 st.pyplot()
+st.write('Terdapat persentase data yang hilang untuk polutan relatif kecil, dengan PM2.5 yang hilang sekitar 2,63%, dan PM10 yang hilang sekitar 2,05%. Variabel polutan dan cuaca lainnya juga memiliki persentase data yang hilang dalam jumlah kecil, sehingga menunjukkan bahwa kumpulan data tersebut relatif lengkap.')
 
 # Time series analysis
 st.title("Time Series Analysis")
