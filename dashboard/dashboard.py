@@ -26,7 +26,6 @@ st.pyplot(sns.heatmap(data_missing_2013.drop('year', axis=1).T, cmap='viridis', 
 st.markdown("""
 Terdapat persentase data yang hilang untuk polutan relatif kecil, dengan PM2.5 yang hilang sekitar 2,63%, dan PM10 yang hilang sekitar 2,05%. Variabel polutan dan cuaca lainnya juga memiliki persentase data yang hilang dalam jumlah kecil, sehingga menunjukkan bahwa kumpulan data tersebut relatif lengkap. Heatmap tahun 2013 menunjukkan bahwa data yang hilang untuk PM2.5 dan PM10 tidak mengikuti pola yang jelas, sehingga menunjukkan bahwa hilangnya data tersebut mungkin terjadi secara acak atau tidak sistematis. Tidak ada data yang hilang dalam jangka panjang, yang merupakan pertanda baik untuk analisis deret waktu.
 """)
-
 # Time series analysis
 st.title("Time Series Analysis")
 data_imputed = df.fillna(method='ffill')
@@ -36,14 +35,12 @@ st.line_chart(data_time_series)
 st.markdown("""
 Rata-rata bulanan dari PM2.5 dan NO2 dilihat dari grafik rata-rata konsentrasi bulanan dari PM2.5 dan NO2. Grafik di atas membantu untuk identifikasi 'seasonal trends' ataupun perubahan kualitas udara dari tahun ke tahun.
 """)
-
 # Plot Seasonal Trends
 seasonal_trends = data_imputed.groupby('month')['PM2.5'].mean()
 st.bar_chart(seasonal_trends)
 st.markdown("""
 Diagram batang menunjukkan rata-rata tingkat PM2.5 dari setiap bulan, konsentrasi tertinggi terjadi pada bulan Desember, Maret (saat musim dingin) dan konsentrasi terendah terjadi pada bulan Agustus, September (saat musim kemarau)
 """)
-
 # Summary Statistics
 st.title("Summary Statistics")
 summary_statistics = data_imputed.describe()
@@ -51,7 +48,6 @@ st.write(summary_statistics)
 st.markdown("""
 Statistik deskriptif memperlihatkan kecondongan dan sebaran masing-masing variabel, termasuk polusi udara dan data meteorologi. Daritabel di atas, PM2.5 memiliki nilai mean mendekati 83.16 dengan standar deviasi 82.29, mengindikasi variabel signifikan pada konsentrasi polusi.
 """)
-
 # Correlation Matrix
 st.title("Correlation Matrix")
 correlation_matrix = data_imputed[['PM2.5', 'PM10', 'SO2', 'NO2', 'CO', 'O3', 'TEMP', 'PRES', 'DEWP', 'RAIN', 'WSPM']].corr()
