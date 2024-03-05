@@ -8,9 +8,6 @@ import seaborn as sns
 
 # Read data
 df = pd.read_csv('./data/PRSA_Data_Aotizhongxin_20130301-20170228.csv')
-
-
-
 # Missing data analysis
 st.title("Missing Data Analysis")
 missing_percentage = df.isnull().mean() * 100
