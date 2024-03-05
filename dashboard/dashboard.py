@@ -6,6 +6,23 @@ from scipy.stats import f_oneway
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+st.title('Dashboard Analisis Kualitas Udara di Aotizhongxin')
+
+
+
+
+st.write('Dashboard ini merupakan media untuk menyampaikan hasil analisis data kualitas udara di Aotizhongxin secara interaktif yang berfokus pada tingkat PM2.5 dan hubungannya dengan berbagai macam kondisi cuaca.')
+
+
+
+st.markdown("""
+- **Name**: Fatimah Fatma Syifa
+- **Email**: fatmasyifa32@gmail.com
+- **Dicoding ID**: fatmasyifa
+
+Dashboard ini menunjukkan analisis data kualitas udara yang berfokus pada tingkat PM2.5 dari Aotizhongxin yang bertujuan untuk mengungkap kecenderungan, variasi per musim, dan kualitas udara yang diakibatkan perbedaan kondisi cuaca. Analisis ini berguna untuk studi lingkungan dan memantau kesehatan masyarakat.
+""")
+
 # Read data
 df = pd.read_csv('./data/PRSA_Data_Aotizhongxin_20130301-20170228.csv')
 
