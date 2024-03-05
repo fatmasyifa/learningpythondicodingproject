@@ -9,6 +9,10 @@ import seaborn as sns
 # Read data
 df = pd.read_csv('./data/PRSA_Data_Aotizhongxin_20130301-20170228.csv')
 
+# Display initial assessment
+st.title("Initial Assessment")
+st.write("Head of the DataFrame:")
+st.write(df.head())
 
 # Missing data analysis
 st.title("Missing Data Analysis")
