@@ -32,6 +32,15 @@ st.pyplot()
 st.markdown("""
 Terdapat persentase data yang hilang untuk polutan relatif kecil, dengan PM2.5 yang hilang sekitar 2,63%, dan PM10 yang hilang sekitar 2,05%. Variabel polutan dan cuaca lainnya juga memiliki persentase data yang hilang dalam jumlah kecil, sehingga menunjukkan bahwa kumpulan data tersebut relatif lengkap. Heatmap tahun 2013 menunjukkan bahwa data yang hilang untuk PM2.5 dan PM10 tidak mengikuti pola yang jelas, sehingga menunjukkan bahwa hilangnya data tersebut mungkin terjadi secara acak atau tidak sistematis. Tidak ada data yang hilang dalam jangka panjang, yang merupakan pertanda baik untuk analisis deret waktu.
 """)
+
+# Summary Statistics
+st.title("Summary Statistics")
+summary_statistics = data_imputed.describe()
+st.write(summary_statistics)
+st.markdown("""
+Statistik deskriptif memperlihatkan kecondongan dan sebaran masing-masing variabel, termasuk polusi udara dan data meteorologi. Daritabel di atas, PM2.5 memiliki nilai mean mendekati 83.16 dengan standar deviasi 82.29, mengindikasi variabel signifikan pada konsentrasi polusi.
+""")
+
 # Time series analysis
 st.title("Time Series Analysis")
 data_imputed = df.fillna(method='ffill')
@@ -55,11 +64,6 @@ plt.xlabel('Month')
 plt.ylabel('Average PM2.5')
 plt.xticks(ticks=range(0, 12), labels=[str(m) for m in range(1, 13)], rotation=0)
 st.pyplot()
-
-# Summary Statistics
-st.title("Summary Statistics")
-summary_statistics = data_imputed.describe()
-st.write(summary_statistics)
 
 # Correlation Matrix
 st.title("Correlation Matrix")
