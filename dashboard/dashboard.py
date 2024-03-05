@@ -35,7 +35,10 @@ plt.xlabel('Date')
 plt.ylabel('Concentration')
 plt.legend()
 st.pyplot()
-
+# Correlation Matrix
+st.title("Correlation Matrix")
+correlation_matrix = data_imputed[['PM2.5', 'PM10', 'SO2', 'NO2', 'CO', 'O3', 'TEMP', 'PRES', 'DEWP', 'RAIN', 'WSPM']].corr()
+st.write(correlation_matrix)
 # Plot Seasonal Trends
 plt.figure(figsize=(10, 6))
 seasonal_trends = data_imputed.groupby('month')['PM2.5'].mean()
