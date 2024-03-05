@@ -29,10 +29,7 @@ plt.ylabel('Pollutant')
 plt.yticks(rotation=0)
 st.pyplot()
 
-st.write("Missing Percentage:")
-st.write(missing_percentage)
-st.write("Sum of Missing Data for 2013:")
-st.write(data_missing_2013.sum())
+
 
 # Data preprocessing
 data_imputed = df.fillna(method='ffill')
