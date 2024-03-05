@@ -7,14 +7,7 @@ st.set_page_config(page_title="Analisis Kualitas Udara di Aotizhongxin")
 # Read data
 df = pd.read_csv('./data/PRSA_Data_Aotizhongxin_20130301-20170228.csv')
 st.title('Dashboard Analisis Kualitas Udara di Aotizhongxin')
-
-
-
-
 st.write('Dashboard ini merupakan media untuk menyampaikan hasil analisis data kualitas udara di Aotizhongxin secara interaktif yang berfokus pada tingkat PM2.5 dan hubungannya dengan berbagai macam kondisi cuaca.')
-
-
-
 st.markdown("""
 - **Name**: Fatimah Fatma Syifa
 - **Email**: fatmasyifa32@gmail.com
