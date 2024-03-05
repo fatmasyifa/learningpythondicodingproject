@@ -8,7 +8,6 @@ df = pd.read_csv('./data/PRSA_Data_Aotizhongxin_20130301-20170228.csv')
 
 # Missing data analysis
 st.title("Missing Data Analysis")
-missing_percentage = df.isnull().mean() * 100
 cols_to_plot = ['PM2.5', 'PM10']
 data_missing = df[cols_to_plot].isnull()
 data_missing['year'] = df['year']
@@ -20,11 +19,6 @@ plt.xlabel('Date')
 plt.ylabel('Pollutant')
 plt.yticks(rotation=0)
 st.pyplot()
-
-st.write("Missing Percentage:")
-st.write(missing_percentage)
-st.write("Sum of Missing Data for 2013:")
-st.write(data_missing_2013.sum())
 
 # Summary Statistics
 st.title("Summary Statistics")
