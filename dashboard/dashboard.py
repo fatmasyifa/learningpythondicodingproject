@@ -1,4 +1,4 @@
-
+revisi streamlit
 
 import streamlit as st
 import pandas as pd
@@ -28,40 +28,83 @@ st.markdown("""
 - **Email**: fatmasyifa32@gmail.com
 - **Dicoding ID**: fatmasyifa
 
-Dashboard ini menunjukkan analisis data kualitas udara yang berfokus pada tingkat PM2.5 dari Aotizhongxin yang bertujuan untuk mengungkap kecenderungan, variasi per musim, dan kualitas udara yang diakibatkan perbedaan kondisi cuaca. Analisis ini berguna untuk studi lingkungan dan memantau kesehatan masyarakat.
+
 """)
+#Missing data
 
+# Create a Streamlit app
+st.title('Missing Data Analysis')
 
-st.sidebar.header('User Input Features')
+# Assuming df is your DataFrame
 
+# Calculate missing percentage
+missing_percentage = df.isnull().mean() * 100
 
-selected_year = st.sidebar.selectbox('Pilih Tahun', list(data['year'].unique()))
-selected_month = st.sidebar.selectbox('Pilih Bulan', list(data['month'].unique()))
+# Specify columns to plot
+cols_to_plot = ['PM2.5', 'PM10']
 
+# Create a DataFrame for missing data
+data_missing = df[cols_to_plot].isnull()
+data_missing['year'] = df['year']
 
-data_filtered = data[(data['year'] == selected_year) & (data['month'] == selected_month)].copy()
+# Filter data for the year 2013
+data_missing_2013 = data_missing[data_missing['year'] == 2013]
 
+# Plot missing data pattern for 2013
+plt.figure(figsize=(20, 8))
+sns.heatmap(data_missing_2013.drop('year', axis=1).T, cmap='viridis', cbar=False)
+plt.title('Missing Data Pattern for 2013')
+plt.xlabel('Date')
+plt.ylabel('Pollutant')
+plt.yticks(rotation=0)
 
-st.subheader('Data berdasarkan periode yang dipilih')
-st.write(data_filtered.describe())
+# Show the plot in the Streamlit app
+st.pyplot()
 
+# Display missing percentage and sum of missing data for 2013
+st.write("Missing Percentage:")
+st.write(missing_percentage)
+st.write("Sum of Missing Data for 2013:")
+st.write(data_missing_2013.sum())
 
-st.subheader('Tingkat PM2.5 (harian)')
-fig, ax = plt.subplots()
-ax.plot(data_filtered['day'], data_filtered['PM2.5'])
-plt.xlabel('Hari dalam bulan')
-plt.ylabel('Konsentrasi PM2.5')
+#Monthly Average Concentrations of PM2.5 and NO2
+
+# Create a Streamlit app
+st.title('Monthly Average Concentrations of PM2.5 and NO2')
+
+# Load your data (data_imputed) assuming it's already loaded and preprocessed
+# Assuming data_imputed is your DataFrame containing 'year', 'month', 'day', 'hour', 'PM2.5', and 'NO2'
+
+# Preprocess data
+data_imputed['date'] = pd.to_datetime(data_imputed[['year', 'month', 'day', 'hour']])
+data_time_series = data_imputed[['date', 'PM2.5', 'NO2']].set_index('date').resample('M').mean()
+
+# Plot the data
+fig, ax = plt.subplots(figsize=(15, 6))
+ax.plot(data_time_series.index, data_time_series['PM2.5'], label='PM2.5', color='blue')
+ax.plot(data_time_series.index, data_time_series['NO2'], label='NO2', color='green')
+ax.set_title('Monthly Average Concentrations of PM2.5 and NO2')
+ax.set_xlabel('Date')
+ax.set_ylabel('Concentration')
+ax.legend()
+
+# Show the plot in the Streamlit app
 st.pyplot(fig)
 
 
-st.subheader('Korelasi Heatmap dari indikator kualitas udara')
-corr = data_filtered[['PM2.5', 'NO2', 'SO2', 'CO', 'O3', 'TEMP', 'PRES', 'DEWP']].corr()
-fig, ax = plt.subplots()
-sns.heatmap(corr, annot=True, ax=ax)
-plt.title('Korelasi Heatmap')
-st.pyplot(fig)
+#Correlation matrix
+# Assuming data_imputed is your DataFrame containing the required columns
 
+# Create a Streamlit app
+st.title('Correlation Matrix')
 
+# Calculate correlation matrix
+correlation_matrix = data_imputed[['PM2.5', 'PM10', 'SO2', 'NO2', 'CO', 'O3', 'TEMP', 'PRES', 'DEWP', 'RAIN', 'WSPM']].corr()
+
+# Display correlation matrix
+st.write(correlation_matrix)
+
+#One way Anava
 st.subheader('Analisis Kecenderungan Per Musim')
 seasonal_trends = data.groupby('month')['PM2.5'].mean()
 fig, ax = plt.subplots()
@@ -71,89 +114,3 @@ plt.xlabel('Bulan')
 plt.ylabel('Rata-rata PM2.5')
 st.pyplot(fig)
 
-
-
-st.subheader('Tingkat 2.5 (harian)')
-fig, ax = plt.subplots()
-ax.plot(data_filtered['day'], data_filtered['PM2.5'])
-plt.xlabel('Hari dalam bulan')
-plt.ylabel('Konsentrasi PM2.5')
-st.pyplot(fig)
-
-
-st.subheader('Distribusi Polutan')
-selected_pollutant = st.selectbox('Pilih Polutan', ['PM2.5', 'PM10', 'SO2', 'NO2', 'CO'])
-fig, ax = plt.subplots()
-sns.boxplot(x='month', y=selected_pollutant, data=data[data['year'] == selected_year], ax=ax)
-st.pyplot(fig)
-
-
-st.subheader('Dekomposisi Rangkaian Waktu PM2.5')
-try:
-    data_filtered['PM2.5'].ffill(inplace=True)
-    decomposed = seasonal_decompose(data_filtered['PM2.5'], model='aditif', period=24) # Adjust period as necessary
-    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(10, 8))
-    decomposed.trend.plot(ax=ax1, title='Kecenderungan')
-    decomposed.seasonal.plot(ax=ax2, title='Musim')
-    decomposed.resid.plot(ax=ax3, title='Residu')
-    plt.tight_layout()
-    st.pyplot(fig)
-except ValueError as e:
-    st.error("Tidak dapat menunjukkan dekomposisi rangkaian waktu: " + str(e))
-
-
-
-st.subheader('Rata-rata Tingkat PM2.5 (jam)')
-try:
-    
-    data['hour'] = data['hour'].astype(int)
-    data['PM2.5'] = pd.to_numeric(data['PM2.5'], errors='coerce')
-    data['PM2.5'].ffill(inplace=True)
-
-    
-    hourly_avg = data.groupby('hour')['PM2.5'].mean()
-
-    
-    fig, ax = plt.subplots()
-    sns.heatmap([hourly_avg.values], ax=ax, cmap='coolwarm')
-    plt.title('Rata-rata Tingkat PM2.5 (jam)')
-    st.pyplot(fig)
-except Exception as e:
-    st.error(f"Error: {e}")
-
-
-st.subheader('Analisis Arah Angin')
-wind_data = data_filtered.groupby('wd')['PM2.5'].mean()
-fig = plt.figure(figsize=(8, 6))
-ax = fig.add_subplot(111, polar=True)
-theta = np.linspace(0, 2 * np.pi, len(wind_data))
-bars = ax.bar(theta, wind_data.values, align='center', alpha=0.5)
-plt.title('Tingkat PM2.5 Berdasarkan Arah Angin')
-st.pyplot(fig)
-
-
-
-st.subheader('Curah Hujan vs Tingkat PM2.5')
-fig, ax = plt.subplots()
-sns.scatterplot(x='RAIN', y='PM2.5', data=data_filtered, ax=ax)
-plt.title('Curah Hujan vs Tingkat PM2.5')
-st.pyplot(fig)
-
-
-st.subheader('Korelasi Heatmap Interaktif')
-selected_columns = st.multiselect('Pilih kolom untuk menentukan korelasi', data.columns, default=['PM2.5', 'NO2', 'TEMP', 'PRES', 'DEWP'])
-corr = data[selected_columns].corr()
-fig, ax = plt.subplots()
-sns.heatmap(corr, annot=True, ax=ax)
-st.pyplot(fig)
-
-
-
-
-st.subheader('Kesimpulan')
-st.write("""
-- Dashboard memberikan analisis data kualitas udara yang lebih detail dan interaktif.
-- Berbagai visualisasi memberikan wawasan tentang tingkat PM2.5, distribusi tingkat PM2.5, dan faktor-faktor yang mempengaruhinya.
-- Kecenderungan per musim dan pengaruh berbagai kondisi cuaca dan polutan terhadap kualitas udara digambarkan dengan jelas.
-- User dapat menjelajahi data secara dinamis untuk mendapatkan pemahaman lebih mendalam tentang tren kualitas udara.
-""")
