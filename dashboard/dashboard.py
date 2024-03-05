@@ -28,6 +28,7 @@ plt.xlabel('Date')
 plt.ylabel('Pollutant')
 plt.yticks(rotation=0)
 st.pyplot()
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
 st.write("Missing Percentage:")
 st.write(missing_percentage)
