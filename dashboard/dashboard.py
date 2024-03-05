@@ -46,6 +46,9 @@ plt.xlabel('Date')
 plt.ylabel('Concentration')
 plt.legend()
 st.pyplot()
+st.markdown("""
+Rata-rata bulanan dari PM2.5 dan NO2 dilihat dari grafik rata-rata konsentrasi bulanan dari PM2.5 dan NO2. Grafik di atas membantu untuk identifikasi 'seasonal trends' ataupun perubahan kualitas udara dari tahun ke tahun.
+""")
 
 # Plot Seasonal Trends
 plt.figure(figsize=(10, 6))
@@ -56,6 +59,9 @@ plt.xlabel('Month')
 plt.ylabel('Average PM2.5')
 plt.xticks(ticks=range(0, 12), labels=[str(m) for m in range(1, 13)], rotation=0)
 st.pyplot()
+st.markdown("""
+Diagram batang menunjukkan rata-rata tingkat PM2.5 dari setiap bulan, konsentrasi tertinggi terjadi pada bulan Desember, Maret (saat musim dingin) dan konsentrasi terendah terjadi pada bulan Agustus, September (saat musim kemarau)
+""")
 
 # Summary Statistics
 st.title("Summary Statistics")
